@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function* xxfn() {
+        var _n = 1;
+        var _v = yield _n + 22;
+        console.log(_v);
+        yield ++_n;
+      }
+      var _xxfn = xxfn();
+      // var v = yield _n+22;这是一个赋值运算，到这个yield的时候，还没运行给_v赋值阶段，因为到了第一个yield就停了
+      console.log(_xxfn.next()); // {done: false,value: 23}   // 第一个next他的返回值是23，因为 1+22 = 23
+
+      // 传入参数，其实是把上一个yield语句的返回值给覆盖了，上一个yield语句的值是yield = _n+22;
+      // 传入了'abc',就变成了yield 'abc';然后又重新赋值给了_v;
+      // 所以这里打印出abc
+      _xxfn.next("abc"); //abc
+
+      // 上面执行了2次next，但是都没有改变_n的值，所以这里值为3
+      console.log(_xxfn.next()); // {value:3,done: true}
+    </script>
+  </body>
+</html>

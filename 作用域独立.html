@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function* xxfn() {
+        let _n = 1;
+        yield ++_n;
+        yield ++_n;
+        yield ++_n;
+      }
+
+      const aa = xxfn();
+      const bb = xxfn();
+      console.log(aa.next()); // {done: false,value: 2}
+      console.log(aa.next()); // {done: false,value: 3}
+      console.log(bb.next()); // {done: false,value: 2}
+      console.log(aa.next()); // {done: false,value: 4}
+      // 可以看出两个跌倒器的作用域书独立的
+      // 每当你调用了一个内部的.next() 方法，Generator函数内部的指针，就是从上一次停下的地方，继续运行。直到遇到下一和yield;
+      // yield就像录音机上的暂停，next就像录音机上的继续
+    </script>
+  </body>
+</html>
